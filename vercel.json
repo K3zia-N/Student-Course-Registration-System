@@ -2,8 +2,12 @@
   "version": 2,
   "builds": [
     {
-      "src": "pom.xml",
-      "use": "@vercel/java"
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "buildCommand": "mvn clean package -DskipTests",
+        "outputDirectory": "target"
+      }
     }
   ],
   "routes": [
