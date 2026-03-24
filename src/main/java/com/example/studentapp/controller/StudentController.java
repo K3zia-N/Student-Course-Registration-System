@@ -27,9 +27,15 @@ public class StudentController {
     }
 
     @PostMapping("/add")
-    public String addStudent(@ModelAttribute Student student) {
-        studentService.saveStudent(student);
-        return "redirect:/students";
+    public String addStudent(@ModelAttribute Student student, Model model) {
+        try {
+            studentService.saveStudent(student);
+            return "redirect:/students";
+        } catch (Exception e) {
+            model.addAttribute("error", "Failed to save student: " + e.getMessage());
+            model.addAttribute("student", student);
+            return "add-student";
+        }
     }
 
     @GetMapping("/edit/{id}")
